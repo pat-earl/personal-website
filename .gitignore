@@ -1,0 +1,13 @@
+# .vscode
+.vscode/
+
+# PyCache
+__pycache__/
+*.pyc
+
+# Enviroment
+website-venv/
+
+# Wsgi stuff
+personal.sock
+config.py

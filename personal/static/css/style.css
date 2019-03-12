@@ -24,14 +24,14 @@ body {
     justify-items: center;
 
     width: 100%;
-    height: 120vh;
+    height: 100vh;
     /* height: 250px; */
     grid-template-areas: "head head head head"
                          "content content . nav"
                          "footer footer footer footer";
 
-    grid-template-rows: 120px 1fr 40px;
-    grid-template-columns: 1fr 20px 200px;
+    grid-template-rows: 100px 80vh 10vh;
+    grid-template-columns: 1fr 5px 200px;
     grid-gap: 5px;
 }
 
@@ -64,7 +64,7 @@ body {
     padding: 5px 10px;
     border-radius: 15px;
 
-    width: 80%;
+    width: 40%;
     background-color: #d4d4dc;
     color: #0f0f0f;
     font-size: 60px;
@@ -101,31 +101,51 @@ nav > ul {
     margin: 0;
     padding: 0;
     width: 200px;
-    background-color: #feda6a;
+    
 }
 
 nav > ul > li a {
-
     display:block;
+    
     color: #0f0f0f;
+    background-color: #feda6a;
+
     padding: 10px;
+    margin: 5px 10px;
+    
     text-decoration: none;
 
     text-align: center;
+
+    border-radius: 10px;
+}
+
+nav > ul > li a:hover {
+    background-color: #e8c761;
 }
 
 #container > main {
     grid-area: content;
     
+    display: grid;
+
+    justify-content: center;
+    align-content: center;
+
+    grid-template-areas: 
+        "card1 card2"
+        "card3 card4";
+
     width: 100%;
     padding: 20px;
 
     border-radius: 20px;
 
-    background-color: #393f4d;
+    /* background-color: #393f4d; */
     color: white;
     text-align: center;
 }
+
 
 #container > footer {
     grid-area: footer;

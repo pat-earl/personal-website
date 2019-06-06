@@ -10,4 +10,6 @@ website-venv/
 
 # Wsgi stuff
 personal.sock
-config.py
+
+# Config file
+config.ini

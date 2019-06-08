@@ -1,0 +1,101 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>Bandwidth Chart</title>
+    <script src="https://cdn.jsdelivr.net/npm/chart.js@2.8.0/dist/Chart.min.js"></script>
+
+    <style> 
+        body {
+            background-color: #c9c3c6;
+        }
+    </style>
+</head>
+<body>
+    <div style="width: 50%; height: 75%; float:left">
+        <canvas id="recv"></canvas>
+    </div>
+    <div style="width: 50%; height: 75%; float:right">
+        <canvas id="sent"></canvas>
+    </div>
+
+    <script>
+        window.onload = function() {
+
+            var ajaxData = getBandwidth();
+
+            var recv = document.getElementById('recv').getContext('2d');
+            var sent = document.getElementById('sent').getContext('2d');
+
+            var recvChart = new Chart.Line(recv, {
+                data:  ajaxData["recv"],
+                options: {
+                    responsive: true, 
+                    hoverMode: 'index',
+                    stacked: false,
+                    title: {
+                        display: true, 
+                        text: "Bandwidth Data from AptRouter"
+                    },
+                }
+            });
+
+            var sentChart = new Chart.Line(sent, {
+                data: ajaxData["sent"],
+                
+            });
+        };
+
+        function getBandwidth() {
+            var xhttp = new XMLHttpRequest();
+            var jsonResponse;
+            xhttp.overrideMimeType("application/json");
+            xhttp.open("GET", "./api/v1/aptrouter/vlan2/3600/", false);
+            xhttp.onload = function() {
+                jsonResponse = JSON.parse(xhttp.responseText);
+            };
+            xhttp.send(null);
+
+            var labels = [];
+            var recv_data = [];
+            var send_data = [];
+            for (var k in jsonResponse["data"]) {
+                labels.push(k);
+                recv_data.push(jsonResponse["data"][k]["recv"]*0.000001);
+                send_data.push(jsonResponse["data"][k]["sent"]*0.000001);
+            }
+            console.log(labels);
+            console.log(send_data);
+
+            var chart_data = {};
+
+            chart_data["recv"] = {
+                labels: labels,
+                datasets: [{
+                    label: "Recv Data (in MB)",
+                    borderColor: 'rgba(200, 0, 0, 1)',
+                    backgroundColor: 'rgba(200, 0, 0, 1)',
+                    fill: false, 
+                    data: recv_data,
+                }]
+            };
+
+            chart_data["sent"] = {
+                labels: labels, 
+                datasets: [{
+                    label: "Sent Data (in MB)",
+                    borderColor: 'rgba(0, 200, 0, 1)',
+                    backgroundColor: 'rgba(0, 200, 0, 1)',
+                    fill: false,
+                    data: send_data, 
+                }]
+            }
+
+            return chart_data;
+        }
+
+    </script>
+</body>
+</html>

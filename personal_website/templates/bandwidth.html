@@ -37,13 +37,22 @@
                     stacked: false,
                     title: {
                         display: true, 
-                        text: "Bandwidth Data from AptRouter"
-                    },
+                        text: "Data Recived on AptRouter"
+                    }
                 }
             });
 
             var sentChart = new Chart.Line(sent, {
                 data: ajaxData["sent"],
+                options: {
+                    responsive: true,
+                    hoverMode: 'index',
+                    stacked: false,
+                    title : {
+                        display: true,
+                        text: "Data sent on AptRouter"
+                    }
+                }
                 
             });
         };
@@ -66,8 +75,8 @@
                 recv_data.push(jsonResponse["data"][k]["recv"]*0.000001);
                 send_data.push(jsonResponse["data"][k]["sent"]*0.000001);
             }
-            console.log(labels);
-            console.log(send_data);
+            // console.log(labels);
+            // console.log(send_data);
 
             var chart_data = {};
 

@@ -1,0 +1,22 @@
+body {
+    background-color: black;
+
+    color: #f8f8ff;
+
+    font-family: 'Times New Roman', Times, serif;
+    font-size: 26px;
+    text-align: center;
+}
+
+#main-content {
+    max-width: 35%;
+    margin: 0 auto;
+}
+
+#interest-list {
+    text-align: left
+}
+
+a {
+    color: #A8A8FF
+}
